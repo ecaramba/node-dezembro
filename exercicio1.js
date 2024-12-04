@@ -37,3 +37,6 @@ console.log("vogais: "+ num_vogal + " consoantes: " +num_cons);
 
 // 3 - colocar o texto em ordem alfabetica
 // texto -> eottx
+// 3412 -> 1234
+var ord = texto.split("").sort().join("");
+console.log(ord)
