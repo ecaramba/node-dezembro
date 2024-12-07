@@ -53,6 +53,13 @@ app.get("/ler", function(req, res){
 
 });
 
+app.post("/sacar", function(){
+
+    // caixa eletronico
+    // Exercicio 038
+
+});
+
 app.listen(3000, function(){
     console.log("servidor iniciado");
 })
