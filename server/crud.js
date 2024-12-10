@@ -36,8 +36,20 @@ app.get("/lista", function(req, res) {
 });
 
 app.post("/atualizar", function(req, res){
-    //UPDATE alunos SET nome = "Roberto" WHERE id = 4;
-    res.send("update");
+    let sql = "UPDATE alunos SET "
+               + " nome = '"+req.body.nome+"', "
+               + " idade = "+req.body.idade+", " 
+               + " email = '"+req.body.email+"', "
+               +  "cidade = '"+req.body.cidade+"', "
+               + " telefone = '"+req.body.telefone+"' "
+            + "WHERE id = " + req.body.id;
+    db.exec(sql, function(erro){
+        if (erro){
+            res.json(sql);
+        } else {
+            res.json("atualizado com sucesso")
+        }
+    });
 });
 
 app.post("/delete", function(req, res){
