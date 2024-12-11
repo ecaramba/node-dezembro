@@ -15,6 +15,14 @@ const app = express();
 const sqlite3 = require("sqlite3");
 const db = new sqlite3.Database("crud.db");
 
+let porta = 3000;
+
+if (process.env.server_prod)
+{
+    porta = 80;
+}
+
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -91,6 +99,6 @@ app.post("/delete", function(req, res){
     })
 });
 
-app.listen(3000, function(){
-    console.log("servidor iniciado");
+app.listen(porta, function(){
+    console.log("servidor iniciado na porta: " + porta);
 })
