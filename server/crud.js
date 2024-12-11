@@ -36,16 +36,44 @@ app.get("/lista", function(req, res) {
 });
 
 app.post("/atualizar", function(req, res){
-    let sql = "UPDATE alunos SET "
-               + " nome = '"+req.body.nome+"', "
-               + " idade = "+req.body.idade+", " 
-               + " email = '"+req.body.email+"', "
-               +  "cidade = '"+req.body.cidade+"', "
-               + " telefone = '"+req.body.telefone+"' "
-            + "WHERE id = " + req.body.id;
+    
+    if (!req.body.id)
+    {
+        res.status(400).send("o campo 'id' é obrigatório");
+    }
+    
+    let sql = "UPDATE alunos SET ";
+
+    if (req.body.nome)
+    {
+        sql += " nome = '"+req.body.nome+"', "
+    }
+  
+    if (req.body.idade)
+    {
+        sql += " idade = "+req.body.idade+", " 
+    }
+
+    if (req.body.email)
+    {
+        sql += " email = '"+req.body.email+"', "
+    } 
+
+    if (req.body.cidade)
+    {
+        sql +=  "cidade = '"+req.body.cidade+"', "
+    } 
+
+    if (req.body.telefone)
+    {
+        sql += " telefone = '"+req.body.telefone+"' "
+    }
+
+        sql += "WHERE id = " + req.body.id;
+
     db.exec(sql, function(erro){
         if (erro){
-            res.json(sql);
+            res.status(500).json(sql);
         } else {
             res.json("atualizado com sucesso")
         }
