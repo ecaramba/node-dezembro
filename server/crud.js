@@ -12,10 +12,13 @@
 const express = require("express");
 const app = express();
 
+const cors = require("cors");
+app.use(cors());
+
 const sqlite3 = require("sqlite3");
 const db = new sqlite3.Database("crud.db");
 
-let porta = 3000;
+let porta = 3030;
 
 if (process.env.server_prod)
 {
@@ -37,6 +40,7 @@ app.post("/cadastro", function(req, res) {
 });
 
 app.get("/lista", function(req, res) {
+    console.log(req.query)
     const sql = "SELECT * FROM alunos";
     db.all(sql, function(erro, linha) {
         res.json(linha);
