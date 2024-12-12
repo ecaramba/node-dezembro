@@ -40,10 +40,25 @@ app.post("/cadastro", function(req, res) {
 });
 
 app.get("/lista", function(req, res) {
-    console.log(req.query)
-    const sql = "SELECT * FROM alunos";
+    
+    let coluna = req.query.ordenar;
+
+    let sql = "";
+
+    if (coluna)
+    {
+        sql = "SELECT * FROM alunos ORDER BY " + coluna;
+    } else {
+        sql = "SELECT * FROM alunos ORDER BY id";
+    }
+
     db.all(sql, function(erro, linha) {
-        res.json(linha);
+        if(erro)
+        {
+            res.status(500).json(sql)
+        } else{
+            res.json(linha);
+        }
     })
 });
 
