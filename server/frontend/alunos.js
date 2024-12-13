@@ -16,6 +16,7 @@ $(document).ready(function(){
                     +"<td>"+ item.telefone +"</td>"
                     +"<td>"+ item.cidade +"</td>"
                     +"<td>"+ item.idade +"</td>"
+                    +'<td><button codigo="'+ item.id +'" class="bt-del btn btn-sm btn-outline-danger"> <i class="bi bi-trash"></i> </button></td>'
                     +"</tr>"
 
                 $("#lista-alunos").append(html);
@@ -55,5 +56,25 @@ $(document).ready(function(){
         }); // fim do post
 
     }); // fim do btsalvar
+
+    $("#lista-alunos").on("click",".bt-del", function(){
+        let cod = $(this).attr("codigo");
+        $("#codigo").val(cod);
+
+        $("#modal-delete").modal("show");
+    }); //fim btdel
+
+    $("#bt-confirma-del").click(function(){
+
+        let aluno = {
+            id:$("#codigo").val() 
+        }
+
+        $.post("http://localhost:3030/delete", aluno, function(retorno){
+            $("#modal-delete").modal("hide");
+            listar();
+        });
+
+    }); //fim bt-confirma-del
 
 }); // fim do ready

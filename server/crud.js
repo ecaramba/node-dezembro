@@ -2,7 +2,7 @@
 // CRUD
 // Criar
 // Read- Ler
-// Update - Atualiazar
+// Update - Atualizar
 // Delete
 
 // cadastro de alunos
@@ -120,7 +120,7 @@ app.post("/delete", function(req, res){
     let sql =  "DELETE FROM alunos WHERE id = " + req.body.id;
     db.exec(sql, function(erro){
         if (erro) {
-            res.json(erro);
+            res.status(500).json(erro);
         } else {
             res.json("deletedo com sucesso");
         }
