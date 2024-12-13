@@ -48,15 +48,30 @@ $(document).ready(function(){
             idade: $("#idade").val()
         };
 
+        let codigo = $("#codigo").val();
 
-        $.post("http://localhost:3030/cadastro", dados, function(retorno){
-            
-            $("#msg-status").toast("show");
-            $("#modal-novo").modal("hide");
-            listar();
-            $("input").val("");
+        if (codigo)
+        {
+            dados.id = codigo;
 
-        }); // fim do post
+            $.post("http://localhost:3030/atualizar", dados, function(retorno){
+                $("#msg-status").toast("show");
+                $("#modal-novo").modal("hide");
+                listar();
+                $("input").val("");
+            })
+
+        } else
+        {
+            $.post("http://localhost:3030/cadastro", dados, function(retorno){
+                
+                $("#msg-status").toast("show");
+                $("#modal-novo").modal("hide");
+                listar();
+                $("input").val("");
+
+            }); // fim do post
+        }
 
     }); // fim do btsalvar
 
@@ -74,7 +89,13 @@ $(document).ready(function(){
         $("#modal-novo").modal("show");
 
         $.getJSON("http://localhost:3030/ler", {id: cod} ,function(dados){
-            console.log(dados);
+            
+            $("#nome").val(dados.nome);
+            $("#telefone").val(dados.telefone);
+            $("#email").val(dados.email);
+            $("#cidade").val(dados.cidade);
+            $("#idade").val(dados.idade);
+
         });
     }); // fim bt-update
 
@@ -89,6 +110,24 @@ $(document).ready(function(){
             listar();
         });
 
+        // $.post("http://localhost:3030/delete", aluno, (retorno) => {
+        //     $("#modal-delete").modal("hide");
+        //     listar();
+        // });
+
     }); //fim bt-confirma-del
 
 }); // fim do ready
+
+let soma = function (n1, n2)
+{
+    return n1 + n2;
+}
+
+// função arrow
+let sub = (n1, n2) => n1 - n2;
+
+let html = "<div>" + nome + "</div>";
+
+// forma template
+let html1 = `<div>${nome}</div>`;
