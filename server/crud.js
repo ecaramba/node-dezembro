@@ -30,11 +30,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/cadastro", function(req, res) {
-    let sql = "INSERT INTO alunos (nome, email, cidade, idade)"
-            + "VALUES ('"+ req.body.nome +"', '"+ req.body.email +"', '"+ req.body.cidade +"', "+ req.body.idade +")";
+    let sql = "INSERT INTO alunos (nome, email, cidade, telefone, idade)"
+            + "VALUES ('"+ req.body.nome +"', '"
+            + req.body.email +"', '"
+            + req.body.cidade +"', '"
+            + req.body.telefone +"', "
+            + req.body.idade +")";
     
     db.exec(sql, function(erro) {
-         res.send("aluno adicionado");
+        if (erro)
+        {
+            res.status(500).json(sql);
+        } else{
+            res.send("aluno adicionado");
+        }
     })
         
 });

@@ -34,4 +34,26 @@ $(document).ready(function(){
 
     }); //fim do click
 
+    $("#bt-salvar").click(function(){
+
+        let dados = {
+            nome: $("#nome").val(),
+            telefone: $("#telefone").val(),
+            email: $("#email").val(),
+            cidade: $("#cidade").val(),
+            idade: $("#idade").val()
+        };
+
+
+        $.post("http://localhost:3030/cadastro", dados, function(retorno){
+            
+            $("#msg-status").toast("show");
+            $("#modal-novo").modal("hide");
+            listar();
+            $("input").val("");
+
+        }); // fim do post
+
+    }); // fim do btsalvar
+
 }); // fim do ready
