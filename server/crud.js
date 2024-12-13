@@ -71,6 +71,23 @@ app.get("/lista", function(req, res) {
     })
 });
 
+app.get("/ler", function(req, res){
+
+    let id = req.query.id;
+
+    let sql = "SELECT * FROM alunos where id= " + id;
+
+    db.get(sql, function(erro, dados) {
+        if (dados)
+        {
+            res.json(dados);
+        } else {
+            res.status(404).send("Aluno não encontrado");
+        }
+    })
+
+});
+
 app.post("/atualizar", function(req, res){
     
     if (!req.body.id)
