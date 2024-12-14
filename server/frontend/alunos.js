@@ -1,12 +1,24 @@
 $(document).ready(function(){
 
+
+    // let url = "http://localhost:3030";
+
+    // if (location.hostname != "localhost"){
+    //     url = "https://api-alunos-pc2g.onrender.com";
+    // }
+
+    // if ternario
+
+    let url = (location.hostname != "localhost")? "https://api-alunos-pc2g.onrender.com" : "http://localhost:3030";
+
+
     function listar(coluna)
     {
         let filtro = { ordenar: coluna};
 
         $("#lista-alunos").empty();
 
-        $.getJSON("http://localhost:3030/lista", filtro, function(dados){
+        $.getJSON(url+ "/lista", filtro, function(dados){
             
             dados.forEach(function(item){
                 let html = "<tr>"
@@ -54,7 +66,7 @@ $(document).ready(function(){
         {
             dados.id = codigo;
 
-            $.post("http://localhost:3030/atualizar", dados, function(retorno){
+            $.post(url+ "/atualizar", dados, function(retorno){
                 $("#msg-status").toast("show");
                 $("#modal-novo").modal("hide");
                 listar();
@@ -63,7 +75,7 @@ $(document).ready(function(){
 
         } else
         {
-            $.post("http://localhost:3030/cadastro", dados, function(retorno){
+            $.post(url+"/cadastro", dados, function(retorno){
                 
                 $("#msg-status").toast("show");
                 $("#modal-novo").modal("hide");
@@ -88,7 +100,7 @@ $(document).ready(function(){
 
         $("#modal-novo").modal("show");
 
-        $.getJSON("http://localhost:3030/ler", {id: cod} ,function(dados){
+        $.getJSON(url+"/ler", {id: cod} ,function(dados){
             
             $("#nome").val(dados.nome);
             $("#telefone").val(dados.telefone);
@@ -105,7 +117,7 @@ $(document).ready(function(){
             id:$("#codigo").val() 
         }
 
-        $.post("http://localhost:3030/delete", aluno, function(retorno){
+        $.post(url+"/delete", aluno, function(retorno){
             $("#modal-delete").modal("hide");
             listar();
         });
