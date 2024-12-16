@@ -131,15 +131,3 @@ $(document).ready(function(){
 
 }); // fim do ready
 
-let soma = function (n1, n2)
-{
-    return n1 + n2;
-}
-
-// função arrow
-let sub = (n1, n2) => n1 - n2;
-
-let html = "<div>" + nome + "</div>";
-
-// forma template
-let html1 = `<div>${nome}</div>`;
