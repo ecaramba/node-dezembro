@@ -144,6 +144,25 @@ app.post("/delete", function(req, res){
     })
 });
 
+app.post("/login", function(req, res){
+    let usuario = req.body.usuario;
+    let senha = req.body.senha;
+
+    let sql = `SELECT usuario, nome  FROM usuarios 
+        WHERE usuario = '${usuario}' AND senha = '${senha}'`;
+
+    db.get(sql, function(erro, dados){
+        if (dados)
+        {
+            res.json(dados);
+        } else {
+            let msg = {erro: "Usuário ou senha incorretos"};
+            res.status(400).json(msg);
+        }
+    })
+
+});
+
 app.listen(porta, function(){
     console.log("servidor iniciado na porta: " + porta);
 })

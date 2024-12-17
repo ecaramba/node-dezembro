@@ -1,5 +1,11 @@
 $(document).ready(function(){
 
+    let usuario = localStorage.getItem("usuario");
+    if (!usuario) {
+        location.assign("/login.html");
+    } else {
+        usuario = JSON.parse(usuario)
+    }
 
     // let url = "http://localhost:3030";
 
@@ -10,6 +16,15 @@ $(document).ready(function(){
     // if ternario
 
     let url = (location.hostname != "localhost")? "https://api-alunos-pc2g.onrender.com" : "http://localhost:3030";
+
+    $("#bt-user").html(usuario.nome);
+
+    $("#bt-sair").click(function(){
+
+        localStorage.clear();
+        location.assign("/login.html");
+
+    });
 
 
     function listar(coluna)
